@@ -15,7 +15,6 @@ contract Voting {
     struct Voter {
         bool registered; // Indicates if the voter is registered
         bool voted; // Indicates if the voter has already voted
-        uint voteIndex; // Index of the candidate that the voter voted for
     }
 
     // Address of the admin who has special privileges
@@ -26,7 +25,7 @@ contract Voting {
     Candidate[] public candidates;
 
     // Event emitted when a vote is cast
-    event VoteCast(address indexed voter, uint indexed candidateId);
+    event VoteCast(uint indexed candidateId);
     // Event emitted when a voter is registered
     event VoterRegistered(address indexed voter);
 
@@ -76,11 +75,9 @@ contract Voting {
         require(candidateId < candidates.length, "Invalid candidate ID");
 
         voters[msg.sender].voted = true;
-        voters[msg.sender].voteIndex = candidateId;
-
         candidates[candidateId].voteCount += 1;
 
-        emit VoteCast(msg.sender, candidateId);
+        emit VoteCast(candidateId);
     }
 
     // @notice Retrieve a candidate's information

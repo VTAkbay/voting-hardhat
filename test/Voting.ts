@@ -85,7 +85,7 @@ describe("Voting", function () {
     await voting.registerVoter(voter1.address);
     await expect(voting.connect(voter1).vote(0))
       .to.emit(voting, "VoteCast")
-      .withArgs(voter1.address, 0);
+      .withArgs(0);
   });
 
   it("Should allow the admin to initialize the contract", async function () {
